@@ -1,1 +1,43 @@
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f6f9;
+  margin:0;
+  padding:30px;
+}
 
+.container{
+  max-width:900px;
+  margin:auto;
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+h1{
+  text-align:center;
+}
+
+input,
+textarea{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+button{
+  padding:10px 15px;
+  margin:5px;
+  cursor:pointer;
+}
+
+#questionBox,
+#feedbackBox{
+  min-height:100px;
+  border:1px solid #ddd;
+  padding:15px;
+  border-radius:10px;
+  background:#fafafa;
+  white-space:pre-wrap;
+}
