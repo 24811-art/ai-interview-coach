@@ -1,1 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>AI 면접 코치</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div class="container">
+
+  <h1>🎤 AI 면접 코치</h1>
+
+  <button id="loginBtn">
+    Google 로그인
+  </button>
+
+  <p id="userInfo"></p>
+
+  <hr>
+
+  <h2>희망 직무 입력</h2>
+
+  <input
+    type="text"
+    id="jobInput"
+    placeholder="예: 전자기계융합공학, 기계설계 엔지니어">
+
+  <button id="questionBtn">
+    면접 질문 생성
+  </button>
+
+  <button id="ttsBtn">
+    질문 읽어주기
+  </button>
+
+  <hr>
+
+  <h2>면접 질문</h2>
+
+  <div id="questionBox">
+    아직 질문이 없습니다.
+  </div>
+
+  <hr>
+
+  <h2>답변 작성</h2>
+
+  <textarea
+    id="answerInput"
+    rows="8"
+    placeholder="면접 답변을 입력하세요"></textarea>
+
+  <button id="feedbackBtn">
+    AI 평가 받기
+  </button>
+
+  <hr>
+
+  <h2>AI 피드백</h2>
+
+  <div id="feedbackBox">
+    아직 평가 결과가 없습니다.
+  </div>
+
+</div>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
