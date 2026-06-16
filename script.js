@@ -56,27 +56,72 @@ document
     }
   });
 
-/* 질문 생성 */
+/* 질문 생성 (진짜 OpenAI GPT API 연동) */
 document
   .getElementById("questionBtn")
-  .addEventListener("click", () => {
+  .addEventListener("click", async () => {
+
     const job = document.getElementById("jobInput").value.trim();
+    const apiKey = document.getElementById("apiKeyInput")?.value.trim();
+
+    // 1. 유효성 검사
+    if(!apiKey){
+      alert("OpenAI API 키를 먼저 입력해주세요! 질문 생성에도 API 키가 필요합니다.");
+      return;
+    }
 
     if(!job){
       alert("직무를 입력하세요");
       return;
     }
 
-    const questions = [
-      `${job} 분야에서 가장 중요한 역량은 무엇이라고 생각합니까?`,
-      `${job} 직무를 선택한 이유를 설명해주세요.`,
-      `${job} 분야에서 문제를 해결했던 경험이 있습니까?`,
-      `${job} 분야에서 본인의 강점은 무엇입니까?`,
-      `${job} 관련 프로젝트 경험을 설명해주세요.`
-    ];
+    // 질문 상자에 로딩 표시
+    document.getElementById("questionBox").innerText = "⏳ AI 면접관이 직무 분석 후 맞춤형 질문을 출제 중입니다...";
 
-    currentQuestion = questions[Math.floor(Math.random() * questions.length)];
-    document.getElementById("questionBox").innerText = currentQuestion;
+    try {
+      // 2. OpenAI API 호출
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini", // 비용 효율적인 모델 사용
+          messages: [
+            {
+              role: "system",
+              content: `당신은 해당 직무의 전문 면접관입니다. 지원자가 입력한 직무를 바탕으로, 실제 면접에서 나올 법한 날카롭고 구체적인 면접 질문을 '딱 한 개'만 생성해 주세요. 
+인사말이나 부연 설명은 절대 하지 말고, 오직 면접 질문 내용만 그대로 출력해야 합니다.`
+            },
+            {
+              role: "user",
+              content: `지원 직무: ${job}`
+            }
+          ],
+          temperature: 0.85 // 매번 조금씩 다른 질문이 나오도록 창의성 살짝 부여
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error?.message || "API 요청에 실패했습니다.");
+      }
+
+      // GPT가 생성한 질문 텍스트 추출
+      const generatedQuestion = data.choices[0].message.content.trim();
+
+      // 3. 전역 변수에 저장 및 화면에 표시
+      currentQuestion = generatedQuestion;
+      document.getElementById("questionBox").innerText = currentQuestion;
+
+    } catch(err) {
+      alert("질문 생성 중 오류가 발생했습니다.");
+      console.error(err);
+      document.getElementById("questionBox").innerText = `⚠️ 질문 생성 실패\n\n오류 내용: ${err.message}`;
+    }
+
   });
 
 /* TTS */
