@@ -1,43 +1,74 @@
-body{
+/* 전체 레이아웃 초기화 및 설정 */
+* {
+  box-sizing: border-box; /* 패딩이 추가되어도 가로 폭이 깨지지 않도록 방지 */
+}
+
+body {
   font-family: Arial, sans-serif;
-  background:#f4f6f9;
-  margin:0;
-  padding:30px;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 30px;
 }
 
-.container{
-  max-width:900px;
-  margin:auto;
-  background:white;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0 0 15px rgba(0,0,0,0.1);
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
-h1{
-  text-align:center;
+h1 {
+  text-align: center;
 }
 
 input,
-textarea{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  margin-bottom:10px;
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
-button{
-  padding:10px 15px;
-  margin:5px;
-  cursor:pointer;
+button {
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+  transition: background 0.2s ease;
 }
 
+button:hover {
+  background: #f0f0f0; /* 마우스 올렸을 때 살짝 어두워지는 효과 */
+}
+
+/* 🔐 OpenAI API 키 설정 칸과 안내 문구 스타일 추가 */
+#apiKeyInput {
+  border: 1px solid #ffccd5; /* 보안 관련 입력창이라 살짝 붉은 톤으로 강조 */
+  background: #fffdfd;
+}
+
+.api-notice {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: -5px;
+  margin-bottom: 15px;
+  padding-left: 5px;
+}
+
+/* 텍스트가 표시되는 박스 영역 정의 */
 #questionBox,
-#feedbackBox{
-  min-height:100px;
-  border:1px solid #ddd;
-  padding:15px;
-  border-radius:10px;
-  background:#fafafa;
-  white-space:pre-wrap;
+#feedbackBox {
+  min-height: 100px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 10px;
+  background: #fafafa;
+  white-space: pre-wrap; /* 줄바꿈 문자(\n)가 화면에 그대로 적용되도록 함 */
+  line-height: 1.6;     /* 지피티가 줄글로 피드백을 주므로 가독성을 위해 줄간격 확보 */
 }
